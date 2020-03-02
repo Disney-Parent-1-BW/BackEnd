@@ -13,7 +13,6 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-    // res.status(200).json(req.user);
     const { id } = req.params;
     Users.findById(id)
         .then(user => {

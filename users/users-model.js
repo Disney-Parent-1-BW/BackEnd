@@ -27,7 +27,9 @@ function update(id, changes) {
     return db('users')
         .where('id', id)
         .update(changes)
-        .then(count => (count > 0 ? get(id) : null))
+        // .then(user => {
+        //     res.json(user);
+        // })
 }
 
 function remove(id) {
