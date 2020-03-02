@@ -4,12 +4,13 @@ module.exports = {
     add,
     find,
     findBy,
+    findById,
     update,
     remove
 };
 
 function find() {
-    return db('users').select('id', 'username', 'password');
+    return db('users').select('id', 'username', 'password', 'name', 'isProvider');
 }
 
 function findBy(filter) {
@@ -22,12 +23,13 @@ async function add(user) {
     return findById(id);
 }
 
-
 function update(id, changes) {
     return db('users')
         .where('id', id)
         .update(changes)
-        .then(count => (count > 0 ? get(id) : null))
+        // .then(user => {
+        //     res.json(user);
+        // })
 }
 
 function remove(id) {
@@ -35,3 +37,11 @@ function remove(id) {
         .where('id', id)
         .del()
 }
+
+function findById(id) {
+    return db('users')
+      .select('id', 'username')
+      .where('id', id)
+      .first();
+  }
+  

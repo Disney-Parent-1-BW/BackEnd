@@ -12,18 +12,24 @@ router.get("/", (req, res) => {
         })
 });
 
+router.get("/:id", (req, res) => {
+    const { id } = req.params;
+    Users.findById(id)
+        .then(user => {
+            res.json(user);
+        })
+        .catch(err => {
+            res.send(err);
+        })
+})
 
 router.put('/:id', (req, res) => {
-    const { id } = req.params;
     const changes = req.body;
 
-    Users.findById(id)
-    .then(user => {
-        if(user) {
-            Users.update(changes, id)
-            .then(updatedUser => {
-                res.json(updatedUser);
-            });
+    Users.update(req.params.id, changes)
+    .then(count => {
+        if(count > 0) {
+            res.status(200).json(count);
         } else {
             res.status(404).json({ message: 'could not find that user'})
         }
@@ -48,5 +54,17 @@ router.delete('/:id', (req, res) => {
         res.status(500).json({ message: 'failed to delete users'})
     });
 });
+
+//validates user
+// function validateUser(req, res, next) {
+//     const body = req.body;
+//     if (body && body.name) {
+//       next();
+//     } else if (!body) {
+//       res.status(400).json({ message: "missing user data"})
+//     } else {
+//       res.status(400).json({ message: "missing name field"})
+//     }
+//   }
 
 module.exports = router;
