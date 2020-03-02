@@ -13,6 +13,15 @@ router.post("/register", (req, res) => {
     Users.add(user)
         .then(saved => {
             const newUser = saved[0];
+            if(newUser.isProvider === 0)
+            {
+                newUser.isProvider = false;
+            }
+            else
+            {
+                newUser.isProvider = true;
+            }
+            
             res.status(200).json(newUser);
         })
         .catch(error => {
