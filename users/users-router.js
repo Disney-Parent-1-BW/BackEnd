@@ -12,22 +12,6 @@ router.get("/", (req, res) => {
         })
 });
 
-router('/:id', (req, res) => {
-    const { id } = req.params;
-
-    Users.findById(id)
-    .then(user => {
-        if(user) {
-            res.json(user);
-        } else {
-            res.status(404).json({ message: 'could not retrieve that user' })
-        }
-    })
-    .catch(err => {
-        res.status(500).json({ message: 'failed to retrieve user'})
-    })
-})
-
 router.put('/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
