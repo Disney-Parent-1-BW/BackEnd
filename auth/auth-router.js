@@ -22,7 +22,7 @@ router.post("/register", (req, res) => {
         });
 });
 
-router.post("login", (req, res) =>
+router.post("/login", (req, res) =>
 {
     const {username, password} = req.body;
     Users.findBy({username}).first()
