@@ -12,12 +12,17 @@ router.post("/register", (req, res) => {
 
     Users.add(user)
         .then(saved => {
-            if(saved.isProviders == 0) {
-                saved.isProviders = true
-            } else {
-                saved.isProviders = false   
+            const newUser = saved[0];
+            if(newUser.isProvider === 0)
+            {
+                newUser.isProvider = false;
             }
-            res.status(201).json(saved);
+            else
+            {
+                newUser.isProvider = true;
+            }
+            
+            res.status(200).json(newUser);
         })
         .catch(error => {
             res.status(500).json(error);
