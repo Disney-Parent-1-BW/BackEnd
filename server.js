@@ -14,5 +14,4 @@ server.use(cors());
 server.use("/api/auth", authRouter);
 server.use("/api/users", restricted, usersRouter);
 
-
 module.exports = server;
