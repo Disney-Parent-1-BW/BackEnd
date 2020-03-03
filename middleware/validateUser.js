@@ -6,7 +6,7 @@ function validateUser(req, res, next)
     Users.findBy({id})
     .then(user =>
     {
-        if(user)
+        if(user[0])
         {
             next();
         }
