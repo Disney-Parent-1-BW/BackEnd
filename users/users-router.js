@@ -12,6 +12,37 @@ router.get("/", (req, res) => {
         })
 });
 
+router.get("/:id", (req, res) =>
+{
+    const id = req.params.id;
+    Users.findBy({id})
+    .then(user =>
+    {
+        user = user[0];
+        if(user)
+        {
+            if(user.isProvider === 0)
+            {
+                user.isProvider = false;
+            }
+            else
+            {
+                user.isProvider = true
+            }
+
+            res.status(200).json(user);
+        }
+        else
+        {
+            res.status(404).json({message: 'user not found'});
+        }
+    })
+    .catch(error =>
+    {
+        res.status(500).json(error);
+    })
+
+})
 
 router.put('/:id', (req, res) => {
     const changes = req.body;

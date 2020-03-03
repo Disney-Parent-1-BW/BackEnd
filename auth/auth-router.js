@@ -37,8 +37,17 @@ router.post("/login", (req, res) =>
     {
         if(user && bcrypt.compareSync(password, user.password))
         {
+            if(user.isProvider === 0)
+            {
+                user.isProvider = false;
+            }
+            else
+            {
+                user.isProvider = true;
+            }
+            
             const token = createToken(user);
-            res.status(200).json({token});
+            res.status(200).json({user, token});
         }
         else
         {
