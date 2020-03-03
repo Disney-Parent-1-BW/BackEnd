@@ -6,7 +6,8 @@ module.exports = {
     findBy,
     findById,
     update,
-    remove
+    remove,
+    getUserRequests,
 };
 
 function find() {
@@ -27,9 +28,6 @@ function update(id, changes) {
     return db('users')
         .where('id', id)
         .update(changes)
-        // .then(user => {
-        //     res.json(user);
-        // })
 }
 
 function remove(id) {
@@ -44,4 +42,9 @@ function findById(id) {
       .where('id', id)
       .first();
   }
+
+function getUserRequests(id) {
+    return db("requests")
+        .where("requestor_id", id)
+}
   
