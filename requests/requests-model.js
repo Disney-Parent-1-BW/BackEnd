@@ -20,7 +20,7 @@ function findById(id) {
 function add(request) {
     return db("requests")
     .insert(request, "id")
-    .then(([id]) => get(id)); 
+    .then(([id]) => find(id)); 
 }
 
 function update(id, changes) {

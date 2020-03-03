@@ -43,8 +43,8 @@ function findById(id) {
       .first();
   }
 
-function getUserRequests(userId) {
+function getUserRequests(id) {
     return db("requests")
-        .where("requestor_id", userId)
+        .where("requestor_id", id)
 }
   

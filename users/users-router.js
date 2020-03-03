@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Users = require("./users-model");
+const Requests = require("../requests/requests-model");
 
 router.get("/", (req, res) => {
     Users.find()
@@ -79,7 +80,7 @@ router.delete('/:id', (req, res) => {
 //posting a request to a specific user
 router.post("/:id/requests", (req, res) => {
     const requestInfo = {...req.body, requestor_id: req.params.id };
-    Users.add(requestInfo)
+    Requests.add(requestInfo)
         .then(request => {
             res.status(201).json(request);
         })
