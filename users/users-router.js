@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Users = require("./users-model");
-const UsersKids = require('../users/users-kids-model');
+const UsersKids = require('../kids/users-kids-model');
 const validateUser = require('../middleware/validateUser');
 
 router.get("/", (req, res) => {
