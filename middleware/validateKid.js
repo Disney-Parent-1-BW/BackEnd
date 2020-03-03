@@ -7,6 +7,7 @@ function validateKid(req, res, next)
     {
         if(kid)
         {
+            req.kid = kid;
             next();
         }
         else

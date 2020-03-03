@@ -24,4 +24,22 @@ router.delete('/:id', validateKid, (req, res) =>
     .catch(error => res.status(500).json(error));
 })
 
+router.put('/:id', validateKid, (req, res) =>
+{
+    const id = req.params.id;
+    const kid = req.kid;
+
+    const changes = {
+        name: req.body.name ? req.body.name : kid.name,
+        special_instructions: req.body.special_instructions ? req.body.special_instructions : kid.special_instructions
+    };
+    
+    kidsDb.updateKid(changes, id)
+    .then(update =>
+    {
+        res.status(200).json(update);
+    })
+    .catch(error => res.status(500).json(error));
+})
+
 module.exports = router;

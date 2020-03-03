@@ -34,10 +34,17 @@ function removeKid(id)
     return db('users_kids').where({id}).del();
 }
 
+async function updateKid(changes, id)
+{
+    const count = await db('users_kids').where({id}).update(changes);
+    return findKidById(id);
+}
+
 module.exports = {
     find,
     addKids,
     findKidById,
     findUserKids,
-    removeKid
+    removeKid,
+    updateKid
 }
