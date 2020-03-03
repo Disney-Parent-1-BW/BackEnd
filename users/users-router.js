@@ -1,6 +1,11 @@
 const router = require("express").Router();
 const Users = require("./users-model");
+<<<<<<< HEAD
 const Requests = require("../requests/requests-model");
+=======
+const UsersKids = require('../kids/users-kids-model');
+const validateUser = require('../middleware/validateUser');
+>>>>>>> 11401e1195f1b70dd4c1f6486e4f286ca7538970
 
 router.get("/", (req, res) => {
     Users.find()
@@ -77,6 +82,7 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 //posting a request to a specific user
 router.post("/:id/requests", (req, res) => {
     const requestInfo = {...req.body, requestor_id: req.params.id };
@@ -106,6 +112,40 @@ router.get("/:id/requests", (req, res) => {
         })
 })
 
+=======
+router.post('/:id/kids', validateUser, (req, res) =>
+{
+    const id = req.params.id
+    const kidArray = req.body;
+
+    if(kidArray.length > 0)
+    {
+        UsersKids.addKids(kidArray, id)
+        .then(newArray =>
+        {
+            res.status(201).json(newArray);
+        })
+        .catch(error => res.status(500).json(error));
+    }
+    else
+    {
+        res.status(400).json({message: 'no kids to put in the database'});
+    }
+})
+
+router.get('/:id/kids', validateUser, (req, res) =>
+{
+    const id = req.params.id;
+
+    UsersKids.findUserKids(id)
+    .then(kids =>
+    {
+        res.status(200).json(kids);
+    })
+    .catch(error => res.status(500).json(error))
+
+})
+>>>>>>> 11401e1195f1b70dd4c1f6486e4f286ca7538970
 
 //validates user
 // function validateUser(req, res, next) {
