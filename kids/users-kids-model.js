@@ -31,6 +31,7 @@ function findKidById(id)
 
 function removeKid(id)
 {
+    return db('users_kids').where({id}).del();
 }
 
 module.exports = {

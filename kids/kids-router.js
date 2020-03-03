@@ -12,4 +12,15 @@ router.get('/', (req, res) =>
     .catch(error => res.status(500).json(error));
 })
 
+router.delete('/:id', (req, res) =>
+{
+    const id = req.params.id;
+    kidsDb.removeKid(id)
+    .then(deleted =>
+    {
+        res.status(200).json({message: `kid with id of ${id} has been deleted`})
+    })
+    .catch(error => res.status(500).json(error));
+})
+
 module.exports = router;
