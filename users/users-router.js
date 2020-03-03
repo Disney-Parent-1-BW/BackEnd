@@ -76,6 +76,36 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+//posting a request to a specific user
+router.post("/:id/requests", (req, res) => {
+    const requestInfo = {...req.body, requestor_id: req.params.id };
+    Users.add(requestInfo)
+        .then(request => {
+            res.status(201).json(request);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({
+                message: "error adding request to user"
+            });
+        });
+});
+
+//getting requests for a specific user
+router.get("/:id/requests", (req, res) => {
+    Users.getUserRequests(req.params.id)
+        .then(requests => {
+            res.status(200).json(requests);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({
+                message: "error getting requsts from user"
+            })
+        })
+})
+
+
 //validates user
 // function validateUser(req, res, next) {
 //     const body = req.body;
