@@ -98,6 +98,19 @@ router.post('/:id/kids', validateUser, (req, res) =>
     }
 })
 
+router.get('/:id/kids', validateUser, (req, res) =>
+{
+    const id = req.params.id;
+
+    UsersKids.findUserKids(id)
+    .then(kids =>
+    {
+        res.status(200).json(kids);
+    })
+    .catch(error => res.status(500).json(error))
+
+})
+
 //validates user
 // function validateUser(req, res, next) {
 //     const body = req.body;

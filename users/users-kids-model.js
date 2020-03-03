@@ -37,6 +37,7 @@ module.exports = {
     find,
     addKids,
     findKidById,
+    findUserKids,
     removeKid
 }
 
