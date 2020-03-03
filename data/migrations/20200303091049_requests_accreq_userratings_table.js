@@ -1,19 +1,38 @@
 exports.up = function(knex) {
   return knex.schema
-    .createTable('users', table =>
-    {
+    .createTable('requests', table => {
         table.increments();
-        table.string('name')
+        table.string('location')
             .notNullable()
-            .unique();
-        table.string('username')
+        table.datetime('time')
             .notNullable()
-            .unique();
-        table.string('password')
-            .notNullable();
-        table.boolean('isProvider')
+        table.string('requestor_id')
+            .unsigned()
             .notNullable()
-            .defaultTo(false);
+            .references('id')
+            .inTable('users')
+            .onUpdate('CASCADE')
+            .onDelete('RESTRICT')
+    })
+    .createTable('accepted_requests', table => {
+        table.increments();
+        table
+            .integer('request_id')
+            .unsigned()
+            .notNullable()
+            .references('id')
+            .inTable('requests')
+            .onUpdate('CASCADE')
+            .onDelete('RESTRICT');
+        table
+            .integer('accepted_by')
+            .unsigned()
+            .notNullable()
+            .references('id')
+            .inTable('users')
+            .onUpdate('CASCADE')
+            .onDelete('RESTRICT')
+        table.unique(['request_id', 'accepted_by']);
     })
 };
 
