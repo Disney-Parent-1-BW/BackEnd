@@ -1,9 +1,9 @@
-const Users = require("../users-model");
+const Users = require("../users/users-model");
 
-function validateUsers(user, req, res, next)
+function validateUser(req, res, next)
 {
     const id = req.params.id
-    Users.findById({id})
+    Users.findBy({id})
     .then(user =>
     {
         if(user)
@@ -17,4 +17,4 @@ function validateUsers(user, req, res, next)
     })
 }
 
-module.exports = validateUsers;
+module.exports = validateUser;

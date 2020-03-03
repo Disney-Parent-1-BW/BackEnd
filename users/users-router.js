@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const Users = require("./users-model");
+const UsersKids = require('../users/users-kids-model');
+const validateUser = require('../middleware/validateUser');
 
 router.get("/", (req, res) => {
     Users.find()
@@ -75,6 +77,12 @@ router.delete('/:id', (req, res) => {
         res.status(500).json({ message: 'failed to delete users'})
     });
 });
+
+router.get('/:id/kids', validateUser, (req, res) =>
+{
+    const id = req.params.id
+    console.log('yes');
+})
 
 //validates user
 // function validateUser(req, res, next) {
