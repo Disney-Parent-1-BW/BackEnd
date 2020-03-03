@@ -1,13 +1,12 @@
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
+  return knex('messages').del()
     .then(function () {
       // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+      return knex('messages').insert([
+        {id: 1, accepted_request_id: 1, message:'I accept the request!', sent_by: 2},
+        {id: 2, accepted_request_id: 2, message:'you got it!', sent_by: 3 },
       ]);
     });
 };
