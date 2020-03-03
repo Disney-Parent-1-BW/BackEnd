@@ -39,6 +39,6 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema
-    .dropIfTableExsists('messages')
-    .dropIfTableExsists('users_kids');
+    .dropTableIfExists('messages')
+    .dropTableIfExists('users_kids');
 };
