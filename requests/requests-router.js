@@ -45,19 +45,11 @@ router.post("/", (req, res) => {
 
 //editing a request
 router.put("/:id", (req, res) => {
-    const { id } = req.params;
     const changes = req.body;
 
-    Requests.findById(id)
+    Requests.update(req.params.id, changes)
     .then(request => {
-        if(request) {
-            Requests.update(changes, id)
-            .then(updatedRequest => {
-                res.json(updatedRequest);
-            });
-        } else {
-            res.status(404).json({ message: "could not find request with that id"})
-        }
+        res.status(200).json(request);
     })
     .catch(err => {
         res.status(500).json({ message: "failed to update request" });

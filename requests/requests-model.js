@@ -18,7 +18,6 @@ function findById(id) {
 }
 
 function add(request) {
-    // schemeData
     return db("requests")
     .insert(request, "id")
     .then(([id]) => get(id)); 
@@ -28,7 +27,6 @@ function update(id, changes) {
     return db("requests")
     .where("id", id)
     .update(changes)
-    .then(count => (count > 0 ? get(id) : null))
 }
 
 function remove(id) {
