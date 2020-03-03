@@ -78,10 +78,24 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-router.get('/:id/kids', validateUser, (req, res) =>
+router.post('/:id/kids', validateUser, (req, res) =>
 {
     const id = req.params.id
-    console.log('yes');
+    const kidArray = req.body;
+
+    if(kidArray.length > 0)
+    {
+        UsersKids.addKids(kidArray, id)
+        .then(newArray =>
+        {
+            res.status(201).json(newArray);
+        })
+        .catch(error => res.status(500).json(error));
+    }
+    else
+    {
+        res.status(400).json({message: 'no kids to put in the database'});
+    }
 })
 
 //validates user
