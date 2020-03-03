@@ -41,6 +41,3 @@ module.exports = {
     findUserKids,
     removeKid
 }
-
-//move logic from router to new function here
-//findUserKids return an array of kids check for user id
