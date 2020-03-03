@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const kidsDb = require('./users-kids-model');
+const validateKid = require('../middleware/validateKid')
 
 router.get('/', (req, res) =>
 {
@@ -12,7 +13,7 @@ router.get('/', (req, res) =>
     .catch(error => res.status(500).json(error));
 })
 
-router.delete('/:id', (req, res) =>
+router.delete('/:id', validateKid, (req, res) =>
 {
     const id = req.params.id;
     kidsDb.removeKid(id)
