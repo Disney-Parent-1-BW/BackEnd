@@ -45,7 +45,6 @@ router.post("/login", (req, res) =>
             {
                 user.isProvider = true;
             }
-            
             const token = createToken(user);
             res.status(200).json({user, token});
         }
