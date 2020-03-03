@@ -16,4 +16,8 @@ server.use(cors());
 server.use("/api/auth", authRouter);
 server.use("/api/users", restricted, usersRouter);
 
+server.get("/", (req, res) => {
+    res.send(`<h2>Welcome to Disney!</h2>`);
+})
+
 module.exports = server;
