@@ -2,6 +2,33 @@ const express = require('express');
 const router = express.Router();
 const messages = require('./messages-model');
 const validateMessage = require('../middleware/validateMessage');
+const acceptedRequests = require('../acceptedRequests/acceptedRequests-model');
+
+//add an accepted request
+router.post('/', (req, res) =>
+{
+    const request = {
+        request_id: req.request_id,
+        accepted_by: req.accepted_by
+    };
+
+    acceptedRequests.addAcceptedRequest(request)
+    .then(request =>
+    {
+        res.status(201).json(request);
+    })
+    .catch(error => res.status(500).json(error));
+})
+
+router.get('/:id', (req, res) =>
+{
+    acceptedRequests.getAcceptedRequest(req.params.id)
+    .then(request =>
+    {
+        res.status(200).json(request);
+    })
+    .catch(error => res.status(500).json(error))
+})
 
 //get all messages for the accepted request
 router.get('/:id/messages', (req, res) =>
