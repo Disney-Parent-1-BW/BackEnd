@@ -6,7 +6,7 @@ exports.up = function(knex) {
             .notNullable()
         table.datetime('time')
             .notNullable()
-        table.string('requestor_id')
+        table.int('requestor_id')
             .unsigned()
             .notNullable()
             .references('id')
