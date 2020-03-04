@@ -13,6 +13,15 @@ router.get('/', (req, res) =>
     .catch(error => res.status(500).json(error));
 })
 //get message by id
+router.get('/:id', (req, res) =>
+{
+    const id = req.params.id
+    messages.getMessageById(id)
+    .then(message =>
+    {
+        res.status(200).json(message)
+    })
+})
 //update message
 //delete message
 
