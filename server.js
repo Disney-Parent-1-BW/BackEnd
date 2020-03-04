@@ -7,7 +7,7 @@ const usersRouter = require("./users/users-router");
 const restricted = require("./auth/restricted-middleware");
 const requestRouter = require("./requests/requests-router");
 const kidsRouter = require('./kids/kids-router');
-
+const messagesRouter = require('./messages/messagesRouter');
 
 const server = express();
 
