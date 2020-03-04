@@ -18,7 +18,7 @@ server.use(cors());
 server.use("/api/auth", authRouter);
 server.use('/api/users/kids', restricted, kidsRouter)
 server.use("/api/users", restricted, usersRouter);
-server.use('/api/acceptedRequests', restricted, messagesRouter)
+server.use('/api/acceptedRequests', messagesRouter)
 server.use("/api/requests", restricted, requestRouter);
 
 server.get("/", (req, res) => {
