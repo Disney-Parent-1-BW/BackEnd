@@ -17,7 +17,7 @@ server.use(cors());
 server.use("/api/auth", authRouter);
 server.use('/api/users/kids', restricted, kidsRouter)
 server.use("/api/users", restricted, usersRouter);
-server.use('/api/acceptedRequests/messsages', messagesRouter)
+server.use('/api/acceptedRequests', messagesRouter)
 
 server.get("/", (req, res) => {
     res.send(`<h2>Welcome to Disney!</h2>`);
