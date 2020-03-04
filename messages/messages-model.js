@@ -25,9 +25,18 @@ function deleteMessage(id)
     return db('messages').where({id}).del();
 }
 
+function getAcceptedRequestMessages(id)
+{
+    return db('messages').select('messages.id','accepted_request_id', 'message', 'users.name as sent_by')
+    .from('messages')
+    .join('users', 'messages.sent_by', 'users.id')
+    .where('messages.accepted_request_id', id);
+}
+
 module.exports = {
     getMessages,
     getMessageById,
     updateMessage,
-    deleteMessage
+    deleteMessage,
+    getAcceptedRequestMessages
 }

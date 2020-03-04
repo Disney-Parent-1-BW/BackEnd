@@ -5,7 +5,13 @@ const messages = require('./messages-model');
 //get all messages for the accepted request
 router.get('/:id/messages', (req, res) =>
 {
-
+    const id = req.params.id;
+    messages.getAcceptedRequestMessages(id)
+    .then(messages =>
+    {
+        res.status(200).json(messages);
+    })
+    .catch()
 })
 //post message for the accepted request
 router.post('/:id/messages', (req, res) =>
