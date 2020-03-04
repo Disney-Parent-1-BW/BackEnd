@@ -16,7 +16,19 @@ router.get('/:id/messages', (req, res) =>
 //post message for the accepted request
 router.post('/:id/messages', (req, res) =>
 {
+    const id = req.params.id;
+    const message = {
+        accepted_request_id: id,
+        message: req.body.message,
+        sent_by: req.body.sent_by
+    }
 
+    messages.addMessage(message)
+    .then(conversation =>
+    {
+        res.status(201).json(conversation);
+    })
+    .catch(error => res.status(500).json(error));
 })
 
 //get all messages

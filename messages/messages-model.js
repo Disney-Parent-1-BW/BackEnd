@@ -33,10 +33,18 @@ function getAcceptedRequestMessages(id)
     .where('messages.accepted_request_id', id);
 }
 
+async function addMessage(message)
+{
+    
+    const [id] = await db('messages').insert(message, 'id');
+    return getAcceptedRequestMessages(message.accepted_request_id);
+}
+
 module.exports = {
     getMessages,
     getMessageById,
     updateMessage,
     deleteMessage,
-    getAcceptedRequestMessages
+    getAcceptedRequestMessages,
+    addMessage
 }
