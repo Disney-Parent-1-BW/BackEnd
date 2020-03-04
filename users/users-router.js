@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Users = require("./users-model");
+const Requests = require("../requests/requests-model");
 const UsersKids = require('../kids/users-kids-model');
 const validateUser = require('../middleware/validateUser');
 
@@ -77,6 +78,35 @@ router.delete('/:id', (req, res) => {
         res.status(500).json({ message: 'failed to delete users'})
     });
 });
+
+//posting a request to a specific user
+router.post("/:id/requests", (req, res) => {
+    const requestInfo = {...req.body, requestor_id: req.params.id };
+    Requests.add(requestInfo)
+        .then(request => {
+            res.status(201).json(request);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({
+                message: "error adding request to user"
+            });
+        });
+});
+
+//getting requests for a specific user
+router.get("/:id/requests", (req, res) => {
+    Users.getUserRequests(req.params.id)
+        .then(requests => {
+            res.status(200).json(requests);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({
+                message: "error getting requsts from user"
+            })
+        })
+})
 
 router.post('/:id/kids', validateUser, (req, res) =>
 {

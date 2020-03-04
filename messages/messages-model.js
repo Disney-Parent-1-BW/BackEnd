@@ -2,22 +2,22 @@ const db = require('../data/dbConfig');
 
 function getMessages()
 {
-
+    return db('messages');
 }
 
-function getMessageById()
+function getMessageById(id)
 {
-
+    return db('messages').where({id});
 }
 
-function updateMessage()
+function updateMessage(changes, id)
 {
-
+    return db('messages').where({id}).update(changes);
 }
 
-function deleteMessage()
+function deleteMessage(id)
 {
-
+    return db('messages').where({id}).del();
 }
 
 module.exports = {
