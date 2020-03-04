@@ -2,7 +2,9 @@ const db = require('../data/dbConfig');
 
 function getMessages()
 {
-    return db('messages');
+    return db.select('messages.id','accepted_request_id', 'message', 'users.name as sent_by')
+        .from('messages')
+        .join('users', 'messages.sent_by', 'users.id');
 }
 
 function getMessageById(id)
