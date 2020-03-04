@@ -18,11 +18,8 @@ server.use(cors());
 server.use("/api/auth", authRouter);
 server.use('/api/users/kids', restricted, kidsRouter)
 server.use("/api/users", restricted, usersRouter);
-<<<<<<< HEAD
-server.use('/api/acceptedRequests', messagesRouter)
-=======
-server.use("/api/requests", requestRouter);
->>>>>>> c0a5991d61c9f6471b6e4514031f5fc70997f55f
+server.use('/api/acceptedRequests', restricted, messagesRouter)
+server.use("/api/requests", restricted, requestRouter);
 
 server.get("/", (req, res) => {
     res.send(`<h2>Welcome to Disney!</h2>`);
