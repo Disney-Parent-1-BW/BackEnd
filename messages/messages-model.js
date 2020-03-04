@@ -9,15 +9,16 @@ function getMessages()
 
 function getMessageById(id)
 {
-    return db('messages').select('messages.id','accepted_request_id', 'message', 'users.name as sent_by')
+    return db.select('messages.id','accepted_request_id', 'message', 'users.name as sent_by')
         .from('messages')
         .join('users', 'messages.sent_by', 'users.id')
         .where('messages.id', id).first();
 }
 
-function updateMessage(changes, id)
+async function updateMessage(changes, id)
 {
-    return db('messages').where({id}).update(changes);
+    const count = await db('messages').where({id}).update(changes);
+    return getMessageById(id);
 }
 
 function deleteMessage(id)
@@ -27,7 +28,7 @@ function deleteMessage(id)
 
 function getAcceptedRequestMessages(id)
 {
-    return db('messages').select('messages.id','accepted_request_id', 'message', 'users.name as sent_by')
+    return db.select('messages.id','accepted_request_id', 'message', 'users.name as sent_by')
     .from('messages')
     .join('users', 'messages.sent_by', 'users.id')
     .where('messages.accepted_request_id', id);
@@ -40,11 +41,17 @@ async function addMessage(message)
     return getAcceptedRequestMessages(message.accepted_request_id);
 }
 
+function validMessageId(id)
+{
+    return db('messages').where({id}).first();
+}
+
 module.exports = {
     getMessages,
     getMessageById,
     updateMessage,
     deleteMessage,
     getAcceptedRequestMessages,
-    addMessage
+    addMessage,
+    validMessageId
 }

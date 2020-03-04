@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const messages = require('./messages-model');
+const validateMessage = require('../middleware/validateMessage');
 
 //get all messages for the accepted request
 router.get('/:id/messages', (req, res) =>
@@ -11,8 +12,9 @@ router.get('/:id/messages', (req, res) =>
     {
         res.status(200).json(messages);
     })
-    .catch()
+    .catch(error => res.status(500).json(error));
 })
+
 //post message for the accepted request
 router.post('/:id/messages', (req, res) =>
 {
@@ -55,9 +57,22 @@ router.get('/messages/:id', (req, res) =>
 })
 
 //update message
-router.put('/messages', (req, res) =>
+router.put('/messages/:id', validateMessage, (req, res) =>
 {
+    const originalMessage = req.message;
+    const changes = {
+        accepted_request_id: originalMessage.accepted_request_id,
+        message: req.body.message ? req.body.message : originalMessage.message,
+        sent_by: originalMessage.sent_by
+    };
 
+    // console.log(changes);
+    messages.updateMessage(changes, req.params.id)
+    .then(updatedMessage =>
+    {
+        res.status(200).json(updatedMessage);
+    })
+    .catch(error => res.status(500).json(error));
 })
 
 //delete message
