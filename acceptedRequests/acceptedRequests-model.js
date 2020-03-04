@@ -25,7 +25,6 @@ async function getAcceptedRequest(id)
         acceptedBy
     };
 
-//    console.log(response);
    return response;
 }
 
