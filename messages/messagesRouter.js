@@ -21,9 +21,20 @@ router.get('/:id', (req, res) =>
     {
         res.status(200).json(message)
     })
+    .catch(error => res.status(500).json(error));
 })
 //update message
 //delete message
+router.delete('/:id', (req, res) =>
+{
+    const id = req.params.id;
+    messages.deleteMessage(id)
+    .then(deleted =>
+    {
+        res.status(200).json({message: `Message with id of ${id} has been deleted`});
+    })
+    .catch(error => res.status(500).json(error));
+})
 
 
 module.exports = router;
