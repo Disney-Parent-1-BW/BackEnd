@@ -8,6 +8,7 @@ module.exports = {
     update,
     remove,
     getUserRequests,
+    getUserRatings
 };
 
 function find() {
@@ -46,5 +47,10 @@ function findById(id) {
 function getUserRequests(id) {
     return db("requests")
         .where("requestor_id", id)
+}
+
+function getUserRatings(id) {
+    return db("user_ratings")
+        .where("rating_for", id)
 }
   
