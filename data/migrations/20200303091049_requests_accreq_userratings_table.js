@@ -4,7 +4,7 @@ exports.up = function(knex) {
         table.increments();
         table.string('location')
             .notNullable()
-        table.datetime('time')
+        table.string('time')
             .notNullable()
         table.integer('requestor_id')
             .unsigned()
@@ -12,7 +12,7 @@ exports.up = function(knex) {
             .references('id')
             .inTable('users')
             .onUpdate('CASCADE')
-            .onDelete('RESTRICT')
+            .onDelete('CASCADE')
     })
     .createTable('accepted_requests', table => {
         table.increments();
@@ -23,7 +23,7 @@ exports.up = function(knex) {
             .references('id')
             .inTable('requests')
             .onUpdate('CASCADE')
-            .onDelete('RESTRICT');
+            .onDelete('CASCADE');
         table
             .integer('accepted_by')
             .unsigned()
@@ -31,7 +31,7 @@ exports.up = function(knex) {
             .references('id')
             .inTable('users')
             .onUpdate('CASCADE')
-            .onDelete('RESTRICT')
+            .onDelete('CASCADE')
         table.unique(['request_id', 'accepted_by']);
     })
     .createTable('user_ratings', table => {
@@ -43,7 +43,7 @@ exports.up = function(knex) {
             .references('id')
             .inTable('users')
             .onUpdate('CASCADE')
-            .onDelete('RESTRICT')
+            .onDelete('CASCADE')
         table
             .string('message', 256)
         table
@@ -53,7 +53,7 @@ exports.up = function(knex) {
             .references('id')
             .inTable('users')
             .onUpdate('CASCADE')
-            .onDelete('RESTRICT')
+            .onDelete('CASCADE')
         table
             .integer('rating')
         table.unique(['rating_left_by', 'rating_for']);
@@ -62,7 +62,7 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema
+    .dropTableIfExists('user_ratings')
     .dropTableIfExists('requests')
     .dropTableIfExists('accepted_requests')
-    .dropTableIfExists('user_ratings')
 };

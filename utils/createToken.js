@@ -5,7 +5,8 @@ const { jwtSecret } = require("../config/secrets");
 function createToken(user)
 {
     const payload = {
-        username: user.username
+        username: user.username,
+        id: user.id
     };
 
     const options = {

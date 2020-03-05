@@ -33,9 +33,13 @@ router.get("/:id", (req, res) => {
 
 //posting  new request
 router.post("/", (req, res) => {
-    Requests.add(req.body)
-        .then(request => {
-            res.status(201).json(request)
+    const request = {
+        ...req.body,
+        requestor_id: req.decodedToken.id
+    };
+    Requests.add(request)
+        .then(newRequest => {
+            res.status(201).json(newRequest)
         })
         .catch(error => {
             console.log(error);
