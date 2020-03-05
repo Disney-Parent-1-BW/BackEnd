@@ -8,8 +8,8 @@ const acceptedRequests = require('../acceptedRequests/acceptedRequests-model');
 router.post('/', (req, res) =>
 {
     const request = {
-        request_id: req.request_id,
-        accepted_by: req.accepted_by
+        request_id: req.body.request_id,
+        accepted_by: req.body.accepted_by
     };
 
     acceptedRequests.addAcceptedRequest(request)
