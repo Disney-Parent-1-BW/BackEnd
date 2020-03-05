@@ -13,9 +13,9 @@ router.post('/', (req, res) =>
     };
 
     acceptedRequests.addAcceptedRequest(request)
-    .then(request =>
+    .then(newRequest =>
     {
-        res.status(201).json(request);
+        res.status(201).json(newRequest);
     })
     .catch(error => res.status(500).json(error));
 })
