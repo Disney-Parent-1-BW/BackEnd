@@ -40,11 +40,12 @@ async function updateKid(changes, id)
     return findKidById(id);
 }
 
+
 module.exports = {
     find,
     addKids,
     findKidById,
     findUserKids,
     removeKid,
-    updateKid
+    updateKid,
 }

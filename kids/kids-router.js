@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router()
 const kidsDb = require('./users-kids-model');
-const validateKid = require('../middleware/validateKid')
+const validateKid = require('../middleware/validateKid');
+const validateUser = require('../middleware/validateUser');
 
 router.get('/', (req, res) =>
 {
@@ -11,6 +12,28 @@ router.get('/', (req, res) =>
         res.status(200).json(kids);
     })
     .catch(error => res.status(500).json(error));
+})
+
+//posting a new kid using current token
+router.post('/', (req, res) =>
+{
+    const kidArray = [
+        ...req.body, {user_id: req.decodedToken.id}
+    ];
+    console.log(kidArray.length)
+    if(kidArray.length > 0)
+    {
+        kidsDb.addKids(kidArray, req.decodedToken.id)
+        .then(newArray =>
+        {
+            res.status(201).json(newArray);
+        })
+        .catch(error => res.status(500).json(error));
+    }
+    else
+    {
+        res.status(400).json({message: 'no kids to put in the database'});
+    }
 })
 
 router.delete('/:id', validateKid, (req, res) =>
