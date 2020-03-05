@@ -33,6 +33,7 @@ router.get("/:id", (req, res) => {
 
 //posting  new request
 router.post("/", (req, res) => {
+    console.log(req.body);
     Requests.add(req.body)
         .then(request => {
             res.status(201).json(request)
