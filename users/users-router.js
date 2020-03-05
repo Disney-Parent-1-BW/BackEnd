@@ -3,6 +3,7 @@ const Users = require("./users-model");
 const Requests = require("../requests/requests-model");
 const UsersKids = require('../kids/users-kids-model');
 const validateUser = require('../middleware/validateUser');
+const Ratings = require("../ratings/ratings-model");
 
 router.get("/", (req, res) => {
     Users.find()
@@ -128,6 +129,7 @@ router.post('/:id/kids', validateUser, (req, res) =>
     }
 })
 
+
 router.get('/:id/kids', validateUser, (req, res) =>
 {
     const id = req.params.id;
@@ -139,6 +141,39 @@ router.get('/:id/kids', validateUser, (req, res) =>
     })
     .catch(error => res.status(500).json(error))
 
+})
+
+//posting a rating to a specific user
+router.post("/:id/ratings", (req, res) => {
+    const ratingInfo = {...req.body, rating_left_by: req.params.id };
+    Ratings.add(ratingInfo)
+        .then(rating => {
+            res.status(201).json(rating);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(500).json({
+                message: "error adding rating to user"
+            });
+        });
+});
+
+//getting ratings for a specific user
+router.get("/:id/ratings", (req, res) => {
+    Users.getUserRatings(req.params.id)
+    .then(ratings => {
+        if(ratings.length) {
+            res.status(200).json(ratings);
+        } else {
+            res.status(404).json({ message: "Could not find ratings for that user" })
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(500).json({
+            message: "error getting requsts from user"
+        })
+    })
 })
 
 //validates user
