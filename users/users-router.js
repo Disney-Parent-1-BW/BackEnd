@@ -129,6 +129,7 @@ router.post('/:id/kids', validateUser, (req, res) =>
     }
 })
 
+
 router.get('/:id/kids', validateUser, (req, res) =>
 {
     const id = req.params.id;
