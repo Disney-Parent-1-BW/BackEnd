@@ -63,6 +63,6 @@ exports.up = function(knex) {
 exports.down = function(knex) {
   return knex.schema
     .dropTableIfExists('user_ratings')
-    .dropTableIfExists('accepted_requests')
     .dropTableIfExists('requests')
+    .dropTableIfExists('accepted_requests')
 };
