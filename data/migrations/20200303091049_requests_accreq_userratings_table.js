@@ -4,7 +4,7 @@ exports.up = function(knex) {
         table.increments();
         table.string('location')
             .notNullable()
-        table.datetime('time')
+        table.string('time')
             .notNullable()
         table.integer('requestor_id')
             .unsigned()
