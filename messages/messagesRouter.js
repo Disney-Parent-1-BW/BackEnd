@@ -20,9 +20,9 @@ router.post('/', (req, res) =>
     .catch(error => res.status(500).json(error));
 })
 
-router.get('/:id', (req, res) =>
+router.get('/', (req, res) =>
 {
-    acceptedRequests.getAcceptedRequest(req.params.id)
+    acceptedRequests.getAcceptedRequest()
     .then(request =>
     {
         res.status(200).json(request);
