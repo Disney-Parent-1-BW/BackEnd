@@ -1,23 +1,23 @@
 // Update with your config settings.
-
+require('dotenv').config()
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './data/disneyparents.db3'
-    },
+    client: 'pg',
     useNullAsDefault: true,
+    
+    connection: {
+      host: '127.0.0.1',
+      port: '5555',
+      user: 'postgres',
+      password:process.env.PASS,
+      database: 'Disney'
+    },
     migrations: {
       directory: './data/migrations'
     },
     seeds: {
       directory: './data/seeds'
-    },
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
-      }
     }
   },
 
