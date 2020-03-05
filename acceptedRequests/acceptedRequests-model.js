@@ -49,8 +49,15 @@ async function getAcceptedRequestId(id)
   return response;
 }
 
+async function checkAccepted(id)
+{
+    const [request] = await db('accepted_requests').where({request_id: id});
+    return request;
+}
+
 module.exports = {
     addAcceptedRequest,
     getAcceptedRequest,
-    getAcceptedRequestId
+    getAcceptedRequestId,
+    checkAccepted
 }

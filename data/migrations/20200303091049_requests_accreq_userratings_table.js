@@ -33,6 +33,7 @@ exports.up = function(knex) {
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table.unique(['request_id', 'accepted_by']);
+        table.boolean('completed').defaultTo(false);
     })
     .createTable('user_ratings', table => {
         table.increments();
@@ -63,6 +64,6 @@ exports.up = function(knex) {
 exports.down = function(knex) {
   return knex.schema
     .dropTableIfExists('user_ratings')
-    .dropTableIfExists('requests')
     .dropTableIfExists('accepted_requests')
+    .dropTableIfExists('requests')
 };
