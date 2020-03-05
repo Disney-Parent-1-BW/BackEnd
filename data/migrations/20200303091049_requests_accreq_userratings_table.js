@@ -23,7 +23,7 @@ exports.up = function(knex) {
             .references('id')
             .inTable('requests')
             .onUpdate('CASCADE')
-            .onDelete('CASADE');
+            .onDelete('CASCADE');
         table
             .integer('accepted_by')
             .unsigned()
