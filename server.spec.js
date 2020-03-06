@@ -1,3 +1,4 @@
+require("dotenv").config();
 const request = require("supertest");
 const server = require("./server");
 
@@ -8,9 +9,6 @@ it("should set db environment to testing", function() {
   describe("server", function() {
     describe("GET /", function() {
       it("should return 200", function() {
-        // run the server
-        // make a GET request to /
-        // see that the http code of response is 200
         return request(server)
           .get("/")
           .then(res => {
