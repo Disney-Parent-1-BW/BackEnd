@@ -22,7 +22,7 @@ router.post("/register", (req, res) => {
                 newUser.isProvider = true;
             }
             
-            res.status(200).json(newUser);
+            res.status(201).json(newUser);
         })
         .catch(error => {
             res.status(500).json(error);
