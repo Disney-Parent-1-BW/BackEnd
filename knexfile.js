@@ -3,16 +3,17 @@ require('dotenv').config()
 module.exports = {
 
   development: {
-    client: 'pg',
+    client: 'sqlite3',
     useNullAsDefault: true,
     
-    connection: {
-      host: '127.0.0.1',
-      port: '5555',
-      user: 'postgres',
-      password:process.env.PASS,
-      database: 'Disney'
-    },
+    // connection: {
+    //   host: '127.0.0.1',
+    //   port: '5555',
+    //   user: 'postgres',
+    //   password:process.env.PASS,
+    //   database: 'Disney'
+    // },
+    connection: { filename: './data/disneyparents.sqlite3' },
     migrations: {
       directory: './data/migrations'
     },
