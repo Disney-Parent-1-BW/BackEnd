@@ -15,13 +15,13 @@ describe("users router", function() {
         });
     });
 
-    it("should return users as the router value", function() {
-      return request(server)
-        .get("/api/users")
-        .then(res => {
-          expect(Array.isArray(res.body)).toBe(true);
-        });
-    });
+    // it("should return users as the router value", function() {
+    //   return request(server)
+    //     .get("/api/users")
+    //     .then(res => {
+    //       expect(Array.isArray(res.body)).toBe(true);
+    //     });
+    // });
 
     it("should return JSON formatted body", function() {
       return request(server)
@@ -31,10 +31,10 @@ describe("users router", function() {
         });
     });
 
-    it("should return an array of users", async function() {
-      const res = await request(server).get("/api/users");
+    // it("should return an array of users", async function() {
+    //   const res = await request(server).get("/api/users");
 
-      expect(Array.isArray(res.body)).toBe(true);
-    });
+    //   expect(Array.isArray(res.body)).toBe(true);
+    // });
   });
 });
