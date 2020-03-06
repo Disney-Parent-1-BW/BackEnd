@@ -24,6 +24,7 @@ describe('GET /api/requests', function()
                     .then(res =>
                     {
                         expect(res.body.length).toBe(3)
+                        expect(res.type).toMatch(/json/);
                     })
 
             })
