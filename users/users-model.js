@@ -5,11 +5,13 @@ module.exports = {
     find,
     findBy,
     update,
-    remove
+    remove,
+    getUserRequests,
+    getUserRatings
 };
 
 function find() {
-    return db('users').select('id', 'username', 'password');
+    return db('users').select('id', 'username', 'name', 'isProvider');
 }
 
 function findBy(filter) {
@@ -17,16 +19,15 @@ function findBy(filter) {
 }
 
 async function add(user) {
-    const [id] = await db('users').insert(user);
+    const [id] = await db('users').insert(user, 'id');
 
-    return findById(id);
+    return findBy({id});
 }
 
 function update(id, changes) {
     return db('users')
         .where('id', id)
         .update(changes)
-        .then(count => (count > 0 ? get(id) : null))
 }
 
 function remove(id) {
@@ -34,3 +35,21 @@ function remove(id) {
         .where('id', id)
         .del()
 }
+
+function findById(id) {
+    return db('users')
+      .select('id', 'username')
+      .where('id', id)
+      .first();
+  }
+
+function getUserRequests(id) {
+    return db("requests")
+        .where("requestor_id", id)
+}
+
+function getUserRatings(id) {
+    return db("user_ratings")
+        .where("rating_for", id)
+}
+  

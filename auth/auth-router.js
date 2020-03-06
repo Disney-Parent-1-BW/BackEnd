@@ -1,4 +1,3 @@
-  
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
@@ -13,7 +12,17 @@ router.post("/register", (req, res) => {
 
     Users.add(user)
         .then(saved => {
-            res.status(201).json(saved);
+            const newUser = saved[0];
+            if(newUser.isProvider === 0)
+            {
+                newUser.isProvider = false;
+            }
+            else
+            {
+                newUser.isProvider = true;
+            }
+            
+            res.status(200).json(newUser);
         })
         .catch(error => {
             res.status(500).json(error);
@@ -24,17 +33,29 @@ router.post("/login", (req, res) =>
 {
     const {username, password} = req.body;
     Users.findBy({username}).first()
-    then(user =>
+    .then(user =>
     {
         if(user && bcrypt.compareSync(password, user.password))
         {
+            if(user.isProvider === 0)
+            {
+                user.isProvider = false;
+            }
+            else
+            {
+                user.isProvider = true;
+            }
             const token = createToken(user);
-            res.status(200).json(token);
+            res.status(200).json({user, token});
         }
         else
         {
             res.status(400).json({error: "username or password is invalid"});
         }
+    })
+    .catch(error =>
+    {
+        res.status(500).json(error);
     })
 })
 
