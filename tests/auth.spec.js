@@ -37,6 +37,7 @@ describe('POST /api/auth/login', function()
             .send(user)
             .then(res =>
             {
+                token = res.body.token;
                 expect(typeof res.body.token).toBe('string');
             })
     })
