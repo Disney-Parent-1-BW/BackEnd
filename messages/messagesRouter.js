@@ -3,6 +3,7 @@ const router = express.Router();
 const messages = require('./messages-model');
 const validateMessage = require('../middleware/validateMessage');
 const acceptedRequests = require('../acceptedRequests/acceptedRequests-model');
+const requests = require('../requests/requests-model');
 
 //add an accepted request
 router.post('/', (req, res) =>
@@ -12,17 +13,29 @@ router.post('/', (req, res) =>
         accepted_by: req.body.accepted_by
     };
 
-    acceptedRequests.addAcceptedRequest(request)
-    .then(newRequest =>
+    acceptedRequests.checkAccepted(req.body.request_id)
+    .then(found =>
     {
-        res.status(201).json(newRequest);
+        if(found)
+        {
+            res.status(400).json({message: 'This request has already been taken'});
+        }
+        else
+        {   
+            acceptedRequests.addAcceptedRequest(request)
+            .then(newRequest =>
+            {
+                res.status(201).json(newRequest);
+            })
+            .catch(error => res.status(500).json(error))
+        }
     })
     .catch(error => res.status(500).json(error));
 })
 
-router.get('/:id', (req, res) =>
+router.get('/', (req, res) =>
 {
-    acceptedRequests.getAcceptedRequest(req.params.id)
+    acceptedRequests.getAcceptedRequest()
     .then(request =>
     {
         res.status(200).json(request);
