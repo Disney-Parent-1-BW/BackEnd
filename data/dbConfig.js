@@ -4,6 +4,8 @@
 
 // module.exports = knex(knexConfig[environment]);
 
+// master config above does not agree with jest testing environment
+
 const knex = require('knex');
 
 const knexConfig = require('../knexfile.js');
